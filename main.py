@@ -1,33 +1,44 @@
 
 clients = 'roberto, mariajose,'
 
+# Function for print all clients
 def list_clients():
     print(clients)
 
-
+# function for create a new client
 def create_client(client_name):
     global clients
+    #Verify if does not exist the same client
     if client_name not in clients:
         clients += client_name
         _add_comma()
     else:
         print('Client is already stored')
 
-
+# Function for update a client name
 def update_client(client_name, new_client_name):
     global clients
+    # Verify if the client exists
     if client_name in clients:
         clients = clients.replace(client_name + ',', new_client_name + ',')
     else:
-        print('Client did not found')
+        _not_in_clients()
 
+# Delete the client
+def delete_client(client_name):
+    global clients
+    if client_name in clients:
+        clients = clients.replace(client_name + ',', '')
+    else:
+        _not_in_clients()
 
 
 def _add_comma():
     global clients
-
     clients += ','
 
+def _not_in_clients():
+    print('Client is not in clients list')
 
 def _print_welcome():
     print('Welcome to PLATZIVENTAS')
@@ -53,7 +64,10 @@ if __name__ == '__main__':
         create_client(client_name)
         list_clients()
     elif command == 'D':
-        pass
+        list_clients()
+        client_name = _get_client_name()
+        delete_client(client_name)
+        list_clients()
     elif command == 'U':
         list_clients()
         client_name = _get_client_name()
