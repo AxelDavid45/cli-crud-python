@@ -1,3 +1,4 @@
+import sys
 
 clients = 'roberto, mariajose,'
 
@@ -33,6 +34,7 @@ def delete_client(client_name):
         _not_in_clients()
 
 def search_client(client_name):
+    # Converts the clients variable into a list using the comma as a separator
     clients_list = clients.split(',')
 
     for client in clients_list:
@@ -57,10 +59,23 @@ def _print_welcome():
     print('[D]elete client')
     print('[U]pdate client')
     print('[S]earch client')
+    print('[L]ist clientS')
 
 
 def _get_client_name():
-    return input('What is the client name?: ')
+    # Define an empty client name
+    client_name = None
+
+    while not client_name:
+        client_name = input('What is the client name?: ')
+        if client_name == 'exit':
+            client_name = None
+            break
+
+    if not client_name:
+        sys.exit()
+
+    return client_name
 
 
 
@@ -92,6 +107,8 @@ if __name__ == '__main__':
             print('The client is in our clients list')
         else:
             print('The client is not in our clients list')
+    elif command == 'L':
+        list_clients()
     else:
         print('Command does not exist')
 
